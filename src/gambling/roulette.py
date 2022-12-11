@@ -28,44 +28,23 @@ class Number:
 
     @property
     def is_1st_12(self):
-        if self.value == 0:
-            return False
-        elif self.value < 13:
-            return True
-        else:
-            return False
+        return self.value != 0 and self.value <= 12
 
     @property
     def is_2nd_12(self):
-        if self.value == 0:
-            return False
-        elif 13 <= self.value < 25:
-            return True
-        else:
-            return False
+        return self.value != 0 and 13 <= self.value <= 24
 
     @property
     def is_3rd_12(self):
-        if self.value == 0:
-            return False
-        elif self.value >= 25:
-            return True
-        else:
-            return False
+        return self.value != 0 and self.value >= 25
 
     @property
     def is_1st_half(self):
-        if self.value == 0 or self.value > 18:
-            return False
-        else:
-            return True
+        return self.value != 0 and self.value <= 18
 
     @property
     def is_2nd_half(self):
-        if self.value == 0 or self.value < 19:
-            return False
-        else:
-            return True
+        return self.value != 0 and self.value >= 19
 
     def __str__(self):
         return self.string
