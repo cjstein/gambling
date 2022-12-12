@@ -73,12 +73,12 @@ class StraightRouletteBet(Bet):
         :param number: number being bet on (Number class)
         """
         super().__init__(player, amount)
-        self.number = number
+        self.number = number if type(number) is Number else Number(number)
         self.odds = 35
 
     def check_win(self, winning_number: Number):
         """Changes the bet.is_winner class to True and pays the bet"""
-        if self.number.value == winning_number.value:
+        if self.number.string == winning_number.string:
             self.is_winner = True
             self.pay_winner()
 
@@ -121,5 +121,30 @@ class HalfRouletteBet(Bet):
             self.is_winner = True
             self.pay_winner()
         elif winning_number.is_2nd_half and self.half == 2:
+            self.is_winner = True
+            self.pay_winner()
+
+
+class ThirdRouletteBet(Bet):
+    def __init__(self, player: Player, amount: float, third: int):
+        """
+        A bet on a third 1 (1-12), 2 (13-24), or 3 (25-36
+        :param player: player making the bet (Player class)
+        :param amount: amount of the bet
+        :param third: int 1, 2, or 3
+        """
+        super().__init__(player, amount)
+        self.third = third
+        self.odds = 2
+
+    def check_win(self, winning_number: Number):
+        """Changes the bet.is_winner class to True and pays the bet"""
+        if winning_number.is_1st_12 and self.third == 1:
+            self.is_winner = True
+            self.pay_winner()
+        elif winning_number.is_2nd_12 and self.third == 2:
+            self.is_winner = True
+            self.pay_winner()
+        elif winning_number.is_3rd_12 and self.third == 3:
             self.is_winner = True
             self.pay_winner()
