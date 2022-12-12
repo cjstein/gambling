@@ -65,10 +65,13 @@ class Bet(object):
 
 
 class StraightRouletteBet(Bet):
-    """
-    A bet on a specific number
-    """
     def __init__(self,  player: Player, amount: float, number: Number):
+        """
+        A bet on a specific number
+        :param player: player making the bet (Player class)
+        :param amount: amount of the bet
+        :param number: number being bet on (Number class)
+        """
         super().__init__(player, amount)
         self.number = number
         self.odds = 35
@@ -81,10 +84,13 @@ class StraightRouletteBet(Bet):
 
 
 class ColorRouletteBet(Bet):
-    """
-    A bet on a color 'red' or 'black'
-    """
     def __init__(self, player: Player, amount: float, color: str):
+        """
+        A bet on a color 'red' or 'black'
+        :param player: player making the bet (Player class)
+        :param amount: amount of the bet
+        :param color: color 'red' or 'black
+        """
         super().__init__(player, amount)
         self.color = color
 
@@ -94,5 +100,26 @@ class ColorRouletteBet(Bet):
             self.is_winner = True
             self.pay_winner()
         elif winning_number.is_black and self.color == 'black':
+            self.is_winner = True
+            self.pay_winner()
+
+
+class HalfRouletteBet(Bet):
+    def __init__(self, player: Player, amount: float, half: int):
+        """
+        A bet on a half '1' or '2'
+        :param player: player making the bet (Player class)
+        :param amount: amount of the bet
+        :param half: int 1 or 2
+        """
+        super().__init__(player, amount)
+        self.half = half
+
+    def check_win(self, winning_number: Number):
+        """Changes the bet.is_winner class to True and pays the bet"""
+        if winning_number.is_1st_half and self.half == 1:
+            self.is_winner = True
+            self.pay_winner()
+        elif winning_number.is_2nd_half and self.half == 2:
             self.is_winner = True
             self.pay_winner()
